@@ -1,14 +1,13 @@
 # Site settings ...
-uri: domain.com
-url: https://domain.com
-name: Your name
-title: Mangan
-email: example@domain.com
-author: username
+uri: github.io
+url: https://csaroff
+name: Chaskin Saroff
+title: "Chaskin's Homepage"
+author: csaroff
 baseurl: ""
-keywords: "Your, Keyword, Here"
-description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione nihil, velit odio quia autem quos. Natus itaque sint, nisi fuga dolorum. Iste ea cumque, aliquam dignissimos vitae labore atque minima?"
-social_username: username
+keywords: "climb, node, code, software, math, mathematics, research, rock climb, chaskin, saroff, chaskin saroff"
+description: "Hey, I'm Chaskin.  I write software services for IBM Bluemix.  In my free time I study algorithms and climb rocks."
+social_username: csaroff
 
 # Build settings ...
 sass:
