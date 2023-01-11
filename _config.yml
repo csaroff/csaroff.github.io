@@ -16,7 +16,7 @@ email: chaskin.saroff@gmail.com
 # website_title: Web (Website title override)
 
 # Dark Mode (true/false/never)
-darkmode: true
+darkmode: false
 
 # Social links
 twitter_username: chaskinsaroff
@@ -44,11 +44,11 @@ linkedin_username: chaskin-saroff
 # about_title: About Me (Use this to override about section title)
 about_profile_image: images/profile.jpg
 about_content: | # this will include new lines to allow paragraphs
-  Hi, I'm Chaskin Saroff. I'm a full stack machine learning engineer who loves building data-science and developer tools.
-  I've previously worked at IBM, Bad-Monkeys and B-Stock and now I'm building ML models to automate obstetrics reporting at [BioticsAI](biotics.ai).
-  I love building tools that save people time and make their lives easier. I'm particularly interested in the intersection of machine learning and health science.
-  Automation is changing the way that science is done and I'm excited to be a part of that.
+  Hi, I'm Chaskin Saroff, a machine learning engineer with a passion for creating tools that empower people to achieve more in less time!
 
+  I’ve previously worked at IBM, Bad-Monkeys and B-Stock and right now I’m building ML models for fetal diagnostics and reporting automation at [BioticsAI](https://www.biotics.ai/).
+
+  I'm really interested in the intersection of machine learning and health science and I'm thrilled to be a part of advancing this technology.
 content:
   # - title: Projects # Title for the section
   #   layout: list # Type of content section (list/text)
@@ -86,6 +86,7 @@ content:
             - Email notifications for outages and customer-lifecycle events.
             - Data pipelines for funneling behavioural and billing data into our analytics systems.
             - An event-based messaging system for any events that happened on the cloud platform.
+            - Managing onboarding and placement of our intern cohorts.
 
           One issue we had at the time was that nearly all of our microservice infrastructure was built on top of cloudant, IBM's couchdb-as-a-service offering.
           Whenever cloudant had an outage(which was fairly often at the time), many of our microservices would go down.
@@ -94,12 +95,35 @@ content:
           I added a proxy in front of the clusters that would route traffic to the healthy cluster and failover to the backup cluster if the primary cluster was down.
           This was a huge improvement for our uptime and allowed us to keep our SLAs.
 
-          After a few years at IBM, I decided to move on to pursue my interests in machine learning and data science.
+          During my time at IBM I became really fascinated with machine learning(particularly reinforcement learning) and began to study it on the side. After a few years, I decided to move on to work on ML full time.
+
+      - layout: right
+        title: Bad Monkeys
+        sub_title: Machine Learning Engineer
+        caption: January 2019 - January 2020
+        description: |
+          After taking a bit of time off to visit family and work on [personal projects](https://github.com/csaroff/homework/tree/master/deepq), I joined Bad Monkeys as a machine learning engineer.
+
+          Bad Monkeys is a startup that builds tools and does consulting for the building information modeling industry(think CADD tools like revit).
+
+          One of the partners there, [Adam Shaether](https://twitter.com/Gytaco), had the vision to automate some of the more repetive and boring aspects of floorplan design.
+
+          One issue with floorplan design is that it that you have to label various elements within a room(like columns, walls, doorways, etc) prior to construction.
+          A draftsman or technician often will finish a room and then have to go back and label all of the elements in the room.
+          This is a very tedious and boring consuming process, and trying to automate it with traditional heuristic rules like "place it as close as possible to the element, but with no overlap" fail to place labels reasonable locations.
+
+          We decided to try and tackle this problem with computer vision. Unlike many computer vision problems which require human annotators to label training data, we were able to generate our own training data by scripting some screenshots of the floorplan.
+          As long as you have a dataset of completed drawings, you can open them up in a CAD program, zoom in on a specific element, and then take a screenshot of the element. You can then temporarily remove the element, and take another screenshot.
+          Then you just diff the two screenshots to grab a bounding box for the label and voila, you have a fully labeled dataset to train your favorite object detection model!
+
+          This worked shockingly well, and we were able to get a model that could annotate potential label locations in a floorplan very effectively! We plugged that into revit and boom, we had a fully automated floorplan element tagging tool!
+
+          We worked on quite a few different ML projects and not all of them panned out as well as this one, but it was a great experience and I learned a ton about modeling and computer vision in the process.
 
       # - layout: right
-      #   title: Bad Monkeys
-      #   sub_title: Machine Learning Engineer
-      #   caption: January 2019 - January 2020
+      #   title: B-Stock Solutions
+      #   sub_title: Data Engineer
+      #   caption: January 2020 - October 2021
       #   description: |
 
   - title: Education
@@ -112,18 +136,30 @@ content:
         # quote: >
         #   Short institution or course description (optional)
         description: | # this will include new lines to allow paragraphs
-          I started programming on my TI-84 in middle school, writing text-based games and algebra solvers. My high-school didn't offer programming classes, so when I finally graduated I was starving to learn more.
+          I started programming on my TI-84 in middle school, writing text-based games and algebra solvers.
+          My high-school didn't offer programming classes, so when I finally graduated and started college I was starving to learn more.
+
           I was also fascinated with mathematics, spending many evenings in the math lab helping other students with their homework.
-          College was an amazing experience for me. It was the first time that I felt truly independent. I finally had the freedom to pursue programming and I was surrounded by people with the same interests and passions as me!
-          To help pay for college, I worked as a residence assistant and math and computer science tutor. I joined the math and computer science clubs, winning the first place prize of a raspberry py in our CS2 programming competition.
-          It's difficult to convey how special my time at Oswego was. I met some of my best friends there and I learned a lot about myself. Being in an environment where everyone is passionate about learning really brought out the best side of me.
+          College was an amazing experience for me. It was the first time that I felt truly independent.
+          I finally had the freedom to pursue programming and I was surrounded by people with the same interests and passions as me!
+          To help pay for college, I worked as a residence assistant and math and computer science tutor.
+          I joined the math and computer science clubs, eventually becoming the VP of the CSA.
 
-  # - title: A Little More About Me
-  #   layout: text
-  #   content: | # this will include new lines to allow paragraphs
-  #     This is where you can write a little more about yourself. You could title this section **Interests** and include some of your other interests.
+          I won first place in the CS2 programming competition. The prize was a raspberry pi which I used to build a [gym capacity indicator](https://github.com/CSC480-Gym-Class-Heroes).
+          It's difficult to convey how special my time at Oswego was. I met some of my best friends there and I learned a lot about myself.
 
-  #     Or you could title it **Skills** and write a bit more about things that make you more desirable, like *leadership* or *teamwork*
+          Being in an environment where everyone is passionate about learning brought out the best side of me.
+
+  - title: A Little More About Me
+    layout: text
+    content: | # this will include new lines to allow paragraphs
+      I'm an avid rock climber and can climb v5's pretty consistently.
+
+      I love to travel and work from new places. I'm also a huge audiobook addict and I'm working through Nick Lane's "The Vital Question" right now.
+
+      If you're intersted in sci-fi def check out Andy Weir's "Project Hail Mary" 10/10 science fiction!
+
+      In december, my [partner](https://github.com/thunguy/AdventOfCode) and I do [advent of code](https://github.com/csaroff/advent-of-code) problems together. It's a lot of fun and we've gotten pretty good at it!
 
 # Footer
 footer_show_references: false
