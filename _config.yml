@@ -48,29 +48,8 @@ about_content: | # this will include new lines to allow paragraphs
 
   I’ve previously worked at IBM, Bad-Monkeys and B-Stock and right now I’m building ML models for fetal diagnostics and reporting automation at [BioticsAI](https://www.biotics.ai/).
 
-  I'm really interested in the intersection of machine learning and health science and I'm thrilled to be a part of advancing this technology.
+  I'm really interested in the intersection of machine learning and health science and I'm grateful to be a working on advancing this technology.
 content:
-  # - title: Projects # Title for the section
-  #   layout: list # Type of content section (list/text)
-  #   content:
-  #     - layout: left
-  #       border:
-  #         weak # Value of `weak` will display a weak border below this item. # Any
-  #         # other value (or no value) means no border will be displayed
-  #       title: Project name
-  #       link: Link to project (eg. sproogen.github.io/modern-resume-theme)(optional)
-  #       link_text: Link Text
-  #       additional_links:
-  #         - title: Github page for project (eg. sproogen/modern-resume-theme)
-  #           icon: fab fa-github
-  #           url: Link to project (eg. sproogen.github.io/modern-resume-theme)(optional)
-  #         - title: Github page for project (eg. sproogen/modern-resume-theme)
-  #           icon: fab fa-github
-  #           url: Link to project (eg. sproogen.github.io/modern-resume-theme)(optional)
-  #       quote: >
-  #         Short overview of the project (optional)
-  #       description: | # this will include new lines to allow paragraphs
-  #         Description about the work on/with the project
   - title: Experience
     layout: list
     content:
@@ -84,7 +63,7 @@ content:
           We wrote almost everything using node, express, and couchdb with react frontends when a frontend was required.
           I was there for three years and so I had my hands in many pies, including:
             - Email notifications for outages and customer-lifecycle events.
-            - Data pipelines for funneling behavioural and billing data into our analytics systems.
+            - Data pipelines for funneling behavioral and billing data into our analytics systems.
             - An event-based messaging system for any events that happened on the cloud platform.
             - Managing onboarding and placement of our intern cohorts.
 
@@ -105,26 +84,90 @@ content:
           After taking a bit of time off to visit family and work on [personal projects](https://github.com/csaroff/homework/tree/master/deepq), I joined Bad Monkeys as a machine learning engineer.
 
           Bad Monkeys is a startup that builds tools and does consulting for the building information modeling industry(think CADD tools like revit).
-
-          One of the partners there, [Adam Shaether](https://twitter.com/Gytaco), had the vision to automate some of the more repetive and boring aspects of floorplan design.
+          They had the vision to automate some of the more repetitive and boring aspects of floorplan design.
 
           One issue with floorplan design is that it that you have to label various elements within a room(like columns, walls, doorways, etc) prior to construction.
-          A draftsman or technician often will finish a room and then have to go back and label all of the elements in the room.
-          This is a very tedious and boring consuming process, and trying to automate it with traditional heuristic rules like "place it as close as possible to the element, but with no overlap" fail to place labels reasonable locations.
+          A draftsman or technician will often finish a room or building and then go back and label all of the elements in the room.
+          This is a very tedious process and trying to automate it with traditional heuristic rules like "place it as close as possible to the element, but with no overlap" fails to place labels in reasonable locations.
 
-          We decided to try and tackle this problem with computer vision. Unlike many computer vision problems which require human annotators to label training data, we were able to generate our own training data by scripting some screenshots of the floorplan.
+          We decided to try and tackle this problem with computer vision. Unlike many computer vision problems which require human annotators to label training data, we were able to generate our own training data from completed floorplans.
           As long as you have a dataset of completed drawings, you can open them up in a CAD program, zoom in on a specific element, and then take a screenshot of the element. You can then temporarily remove the element, and take another screenshot.
-          Then you just diff the two screenshots to grab a bounding box for the label and voila, you have a fully labeled dataset to train your favorite object detection model!
+          After that, you just diff the two screenshots to grab a bounding box for the label and voila, you have a fully labeled dataset to train your favorite object detection model!
 
-          This worked shockingly well, and we were able to get a model that could annotate potential label locations in a floorplan very effectively! We plugged that into revit and boom, we had a fully automated floorplan element tagging tool!
+          This worked shockingly well, and we were able to get a model that could annotate potential label locations in a floorplan very effectively! We plugged this into revit and boom, we had a fully automated floorplan element tagging tool!
 
-          We worked on quite a few different ML projects and not all of them panned out as well as this one, but it was a great experience and I learned a ton about modeling and computer vision in the process.
+          We worked on a few different ML projects while I was there and not all of them panned out as well as this one, but it was a great experience and I learned a ton about modeling and computer vision in the process.
 
-      # - layout: right
-      #   title: B-Stock Solutions
-      #   sub_title: Data Engineer
-      #   caption: January 2020 - October 2021
-      #   description: |
+      - layout: right
+        title: B-Stock Solutions
+        sub_title: Senior Data Engineer
+        caption: January 2020 - October 2021
+        description: |
+          B-Stock is a company that provides a marketplace to help companies liquidate their excess inventory. It's a surprisingly large market, and B-Stock is the largest player.
+          Many companies like Amazon or Costco have large warehouses full of inventory. When something gets returned, if they can't sell it right away it starts to clutter up their warehouse.
+
+          If they can't resell it they two options:
+            1. Sell it to a liquidator like B-Stock
+            2. Throw it in a landfill
+
+          Prior to B-Stock, the liquidations industry was pretty shady, involving many small private liquidators that would offer recovery rates as low as 2-3% and some companies would even pay to have their inventory destroyed.
+
+          When I joined B-Stock, we had a small "data warehouse" built on top of MySQL called "alldata" with a 1-off ETL pipeline for funneling data from our application dbs into alldata.
+          The problem with alldata was that it really only had a small subset of our application data, the data pipeline was pretty buggy and it was really time-consuming to add new data sources.
+
+          Because of these limitations, most of the account managers had been running their own analytics through excel and were manually generating reports for their clients.
+          The report generation process was collectively costing the account management team almost a hundred hours a week, and it was a huge bottleneck for the company.
+
+          I built a new data warehouse on top of bigquery and setup fivetran to sync data directly from our microservices databases into bigquery.
+          Because of the way it was stored, there was a subset of data that couldn't be ingested ingested with fivetran, so I wrote few data pipeline to sync that data into bigquery as well.
+
+          From there, I built a report within our BI tool(metabase) that allowed account managers to generate reports for their clients with a few clicks.
+          In the end, we ended up with a data warehouse accessible to the whole company through metabase which really democratized the company's data and allowed anyone to build data visualizations without having to download a bunch of csv's, concatenate them, and then generate a report in excel.
+
+      - layout: right
+        title: BioticsAI
+        sub_title: Co-Founder and CTO
+        caption: October 2021 - Present
+        description: |
+          According to the American College of Obstetricians and Gynecologists, the US has a [shortage of 9000 obstetricians](https://www.ajmc.com/view/physician-shortage-likely-to-impact-obgyn-workforce-in-coming-years).
+          This problem is only getting worse with only [1 in 5 Ob/Gyns being under the age of 40](https://www.ajmc.com/view/physician-shortage-likely-to-impact-obgyn-workforce-in-coming-years), ACOG projects a shortage of 22,000 Ob/Gyns by 2050.
+          A large part of this deficit is physician burnout, which is [twice the rate of other working adults](https://www.acog.org/news/news-articles/2019/10/why-ob-gyns-are-burning-out).
+          What's the number one cause of physician burnout? [Too many administrative tasks(e.g. charting, paperwork)](https://www.medscape.com/slideshow/2022-lifestyle-burnout-6014664?faf=1#4).
+
+          At BioticsAI, we're building a platform to automate the most time-consuming and tedious aspects of obstetrics and gynecology, namely reporting.
+          Our tool can automatically generate reports from fetal ultrasound images and we're currently piloting it with a handful of clinics in the MENA region.
+
+          We're starting with a focus on administrative automation(the boring stuff), but we're also building tools to help doctors recognize abnormalities earlier and with higher accuracy to improve patient outcomes.
+          Over 50% of fetal structural anomalies go [undetected during pregnancy](https://eu-rd-platform.jrc.ec.europa.eu/eurocat/eurocat-data/prenatal-screening-and-diagnosis_en) with ~10% being detected after 23 weeks when termination is often no longer an option.
+          Congenital anomalies affect around [2% of fetuses](https://obgyn.onlinelibrary.wiley.com/doi/10.1111/aogs.13037) and there's ~140 million births per year.
+          That means that there are ~1.26 million undetected congenital anomalies per year. The problem is likely even worse because most of this data comes from the US and Europe where high quality healthcare is relatively accessible.
+          In developing nations, where the bulk of pregnancies are occurring, the problem is likely even worse. Luckily, ultrasound is a relatively cheap and accessible technology that can be used to detect these anomalies.
+          If we can improve the diagnosis rate by just 10% or detect anomalies earlier, it would have a huge impact on the lives of hundreds of thousands of people.
+
+          The most important ingredient in any machine learning project is data, and the journey to get to high-quality labeled data was long and bumpy.
+          We built a dataset and annotation team with one of our partner clinics and started the process of labeling our ultrasound images with plane labels and anatomical regions.
+
+          This all started off as a side-project in 2019 and at the time there weren't a lot of high-quality annotation tools around.
+          The really good tools were hundreds of dollars a month per user and certainly outside the budget of an unfunded side-project.
+          We were annotating all of our images with a local tool called [pixel annotation tool](https://github.com/abreheret/PixelAnnotationTool) having the annotators sync the dataset and annotations between google drive and their local machine.
+          Reviewing annotation progress was manual. Uploading anonymized data to google drive was manual. Splitting the data and organizing it so each annotator had their own set of data to work on was manual.
+          We were spending way too much time keeping our annotation team organized.
+
+          My cofounder [Robhy](https://twitter.com/rickyrobhy) and I did some research and tested out a bunch of different annotation tools and we eventually settled on an open-source, cloud-based tool called labelstudio.
+          I'm really partial to open-source projects that offer a hosted option for $, but perhaps the biggest factors in our decision were cost and security.
+          Self-deployment meant we could keep all of our data inside GCP and we could use our cloud credits to pay for everything.
+
+          Labelstudio is great. Finally our data was in the cloud. Finally we could review annotation progress in real-time. Finally we didn't have to manually split our data so that each annotator had their own set of data to work on. Paradise, right?
+          Well... not quite. Labelstudio is great for annotating images, but it's not great for monitoring annotation progress(at least the open-source version).
+          Luckily, my BI skills were pretty polished at this point so I deployed metabase into our GKE cluster and built some dashboards to track our annotation progress over time.
+          Finally we could visualize our annotation progress!
+
+          One last pain point though. I was still manually uploading our data into labelstudio and that just wouldn't do.
+          At this point we had already built a data ingestion pipeline for our core reporting software where our partner clinics would forward DICOM studies into a GCP dicom store using a protocol called DIMSE.
+          From there, we just setup a pub/sub subscriber that called the gcp anonymization api, uploaded the anonymized data to our GCS bucket and called the labelstudio api to import the image.
+          Voila! No more manual data munging in our annotation pipeline.
+
+          If you want to learn more about bioticsai and our interesting engineering challenges, shoot me an email at chaskin@biotics.ai or check out our [website](https://biotics.ai/).
 
   - title: Education
     layout: list
@@ -152,14 +195,14 @@ content:
 
   - title: A Little More About Me
     layout: text
-    content: | # this will include new lines to allow paragraphs
-      I'm an avid rock climber and can climb v5's pretty consistently.
+    content: |
+      I'm an avid rock climber and climb v5's pretty consistently.
 
       I love to travel and work from new places. I'm also a huge audiobook addict and I'm working through Nick Lane's "The Vital Question" right now.
 
-      If you're intersted in sci-fi def check out Andy Weir's "Project Hail Mary" 10/10 science fiction!
+      If you're interested in sci-fi definitely check out Andy Weir's "Project Hail Mary" 10/10 science fiction!
 
-      In december, my [partner](https://github.com/thunguy/AdventOfCode) and I do [advent of code](https://github.com/csaroff/advent-of-code) problems together. It's a lot of fun and we've gotten pretty good at it!
+      In december, my partner and I do [advent of code](https://github.com/csaroff/advent-of-code) problems together. It's a lot of fun and I even got to day 14 this year!
 
 # Footer
 footer_show_references: false
