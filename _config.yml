@@ -54,77 +54,7 @@ content:
     layout: list
     content:
       - layout: right
-        title: IBM Cloud
-        sub_title: Data Engineer
-        caption: May 2015 - July 2018
-        description: |
-          I started my career off at IBM cloud. My team built and maintained the account management, billing and analytics systems.
-
-          We wrote almost everything using node, express, and couchdb with react frontends when a frontend was required.
-          I was there for three years and so I had my hands in many pies, including:
-            - Email notifications for outages and customer-lifecycle events.
-            - Data pipelines for funneling behavioral and billing data into our analytics systems.
-            - An event-based messaging system for any events that happened on the cloud platform.
-            - Managing onboarding and placement of our intern cohorts.
-
-          One issue we had at the time was that nearly all of our microservice infrastructure was built on top of cloudant, IBM's couchdb-as-a-service offering.
-          Whenever cloudant had an outage(which was fairly often at the time), many of our microservices would go down.
-          The outage was usually localized to a specific cloudant cluster, but all of our microservices were hosted on the same cluster.
-          To mitigate these downtime issues, I setup a secondary backup cluster with bi-directional replication where we could failover to in the event of an outage.
-          I added a proxy in front of the clusters that would route traffic to the healthy cluster and failover to the backup cluster if the primary cluster was down.
-          This was a huge improvement for our uptime and allowed us to keep our SLAs.
-
-          During my time at IBM I became really fascinated with machine learning(particularly reinforcement learning) and began to study it on the side. After a few years, I decided to move on to work on ML full time.
-
-      - layout: right
-        title: Bad Monkeys
-        sub_title: Machine Learning Engineer
-        caption: January 2019 - January 2020
-        description: |
-          After taking a bit of time off to visit family and work on [personal projects](https://github.com/csaroff/homework/tree/master/deepq), I joined Bad Monkeys as a machine learning engineer.
-
-          Bad Monkeys is a startup that builds tools and does consulting for the building information modeling industry(think CADD tools like revit).
-          They had the vision to automate some of the more repetitive and boring aspects of floorplan design.
-
-          One issue with floorplan design is that it that you have to label various elements within a room(like columns, walls, doorways, etc) prior to construction.
-          A draftsman or technician will often finish a room or building and then go back and label all of the elements in the room.
-          This is a very tedious process and trying to automate it with traditional heuristic rules like "place it as close as possible to the element, but with no overlap" fails to place labels in reasonable locations.
-
-          We decided to try and tackle this problem with computer vision. Unlike many computer vision problems which require human annotators to label training data, we were able to generate our own training data from completed floorplans.
-          As long as you have a dataset of completed drawings, you can open them up in a CAD program, zoom in on a specific element, and then take a screenshot of the element. You can then temporarily remove the element, and take another screenshot.
-          After that, you just diff the two screenshots to grab a bounding box for the label and voila, you have a fully labeled dataset to train your favorite object detection model!
-
-          This worked shockingly well, and we were able to get a model that could annotate potential label locations in a floorplan very effectively! We plugged this into revit and boom, we had a fully automated floorplan element tagging tool!
-
-          We worked on a few different ML projects while I was there and not all of them panned out as well as this one, but it was a great experience and I learned a ton about modeling and computer vision in the process.
-
-      - layout: right
-        title: B-Stock Solutions
-        sub_title: Senior Data Engineer
-        caption: January 2020 - October 2021
-        description: |
-          B-Stock is a company that provides a marketplace to help companies liquidate their excess inventory. It's a surprisingly large market, and B-Stock is the largest player.
-          Many companies like Amazon or Costco have large warehouses full of inventory. When something gets returned, if they can't sell it right away it starts to clutter up their warehouse.
-
-          If they can't resell it they two options:
-            1. Sell it to a liquidator like B-Stock
-            2. Throw it in a landfill
-
-          Prior to B-Stock, the liquidations industry was pretty shady, involving many small private liquidators that would offer recovery rates as low as 2-3% and some companies would even pay to have their inventory destroyed.
-
-          When I joined B-Stock, we had a small "data warehouse" built on top of MySQL called "alldata" with a 1-off ETL pipeline for funneling data from our application dbs into alldata.
-          The problem with alldata was that it really only had a small subset of our application data, the data pipeline was pretty buggy and it was really time-consuming to add new data sources.
-
-          Because of these limitations, most of the account managers had been running their own analytics through excel and were manually generating reports for their clients.
-          The report generation process was collectively costing the account management team almost a hundred hours a week, and it was a huge bottleneck for the company.
-
-          I built a new data warehouse on top of bigquery and setup fivetran to sync data directly from our microservices databases into bigquery.
-          Because of the way it was stored, there was a subset of data that couldn't be ingested ingested with fivetran, so I wrote few data pipeline to sync that data into bigquery as well.
-
-          From there, I built a report within our BI tool(metabase) that allowed account managers to generate reports for their clients with a few clicks.
-          In the end, we ended up with a data warehouse accessible to the whole company through metabase which really democratized the company's data and allowed anyone to build data visualizations without having to download a bunch of csv's, concatenate them, and then generate a report in excel.
-
-      - layout: right
+        border: weak
         title: BioticsAI
         sub_title: Co-Founder and CTO
         caption: October 2021 - Present
@@ -135,7 +65,7 @@ content:
           What's the number one cause of physician burnout? [Too many administrative tasks(e.g. charting, paperwork)](https://www.medscape.com/slideshow/2022-lifestyle-burnout-6014664?faf=1#4).
 
           At BioticsAI, we're building a platform to automate the most time-consuming and tedious aspects of obstetrics and gynecology, namely reporting.
-          Our tool can automatically generate reports from fetal ultrasound images and we're currently piloting it with a handful of clinics in the MENA region.
+          Our tool automatically generates reports from fetal ultrasound images and we're currently piloting it with a handful of clinics in the MENA region.
 
           We're starting with a focus on administrative automation(the boring stuff), but we're also building tools to help doctors recognize abnormalities earlier and with higher accuracy to improve patient outcomes.
           Over 50% of fetal structural anomalies go [undetected during pregnancy](https://eu-rd-platform.jrc.ec.europa.eu/eurocat/eurocat-data/prenatal-screening-and-diagnosis_en) with ~10% being detected after 23 weeks when termination is often no longer an option.
@@ -168,6 +98,80 @@ content:
           Voila! No more manual data munging in our annotation pipeline.
 
           If you want to learn more about bioticsai and our interesting engineering challenges, shoot me an email at chaskin@biotics.ai or check out our [website](https://biotics.ai/).
+
+      - layout: right
+        border: weak
+        title: B-Stock Solutions
+        sub_title: Senior Data Engineer
+        caption: January 2020 - October 2021
+        description: |
+          B-Stock is a company that provides a marketplace to help companies liquidate their excess inventory. It's a surprisingly large market, and B-Stock is the largest player.
+          Many companies like Amazon or Costco have large warehouses full of inventory. When something gets returned, if they can't sell it right away it starts to clutter up their warehouse.
+
+          If they can't resell it they two options:
+            1. Sell it to a liquidator like B-Stock
+            2. Throw it in a landfill
+
+          Prior to B-Stock, the liquidations industry was pretty shady, involving many small private liquidators that would offer recovery rates as low as 2-3% and some companies would even pay to have their inventory destroyed.
+
+          When I joined B-Stock, we had a small "data warehouse" built on top of MySQL called "alldata" with a 1-off ETL pipeline for funneling data from our application dbs into alldata.
+          The problem with alldata was that it really only had a small subset of our application data, the data pipeline was pretty buggy and it was really time-consuming to add new data sources.
+
+          Because of these limitations, most of the account managers had been running their own analytics through excel and were manually generating reports for their clients.
+          The report generation process was collectively costing the account management team almost a hundred hours a week, and it was a huge bottleneck for the company.
+
+          I built a new data warehouse on top of bigquery and setup fivetran to sync data directly from our microservices databases into bigquery.
+          Because of the way it was stored, there was a subset of data that couldn't be ingested ingested with fivetran, so I wrote few data pipeline to sync that data into bigquery as well.
+
+          From there, I built a report within our BI tool(metabase) that allowed account managers to generate reports for their clients with a few clicks.
+          In the end, we ended up with a data warehouse accessible to the whole company through metabase which really democratized the company's data and allowed anyone to build data visualizations without having to download a bunch of csv's, concatenate them, and then generate a report in excel.
+
+      - layout: right
+        border: weak
+        title: Bad Monkeys
+        sub_title: Machine Learning Engineer
+        caption: January 2019 - January 2020
+        description: |
+          After taking a bit of time off to visit family and work on [personal projects](https://github.com/csaroff/homework/tree/master/deepq), I joined Bad Monkeys as a machine learning engineer.
+
+          Bad Monkeys is a startup that builds tools and does consulting for the building information modeling industry(think CADD tools like revit).
+          They had the vision to automate some of the more repetitive and boring aspects of floorplan design.
+
+          One issue with floorplan design is that it that you have to label various elements within a room(like columns, walls, doorways, etc) prior to construction.
+          A draftsman or technician will often finish a room or building and then go back and label all of the elements in the room.
+          This is a very tedious process and trying to automate it with traditional heuristic rules like "place it as close as possible to the element, but with no overlap" fails to place labels in reasonable locations.
+
+          We decided to try and tackle this problem with computer vision. Unlike many computer vision problems which require human annotators to label training data, we were able to generate our own training data from completed floorplans.
+          As long as you have a dataset of completed drawings, you can open them up in a CAD program, zoom in on a specific element, and then take a screenshot of the element. You can then temporarily remove the element, and take another screenshot.
+          After that, you just diff the two screenshots to grab a bounding box for the label and voila, you have a fully labeled dataset to train your favorite object detection model!
+
+          This worked shockingly well, and we were able to get a model that could annotate potential label locations in a floorplan very effectively! We plugged this into revit and boom, we had a fully automated floorplan element tagging tool!
+
+          We worked on a few different ML projects while I was there and not all of them panned out as well as this one, but it was a great experience and I learned a ton about modeling and computer vision in the process.
+
+      - layout: right
+        border: weak
+        title: IBM Cloud
+        sub_title: Data Engineer
+        caption: May 2015 - July 2018
+        description: |
+          I started my career off at IBM cloud. My team built and maintained the account management, billing and analytics systems.
+
+          We wrote almost everything using node, express, and couchdb with react frontends when a frontend was required.
+          I was there for three years and so I had my hands in many pies, including:
+            - Email notifications for outages and customer-lifecycle events.
+            - Data pipelines for funneling behavioral and billing data into our analytics systems.
+            - An event-based messaging system for any events that happened on the cloud platform.
+            - Managing onboarding and placement of our intern cohorts.
+
+          One issue we had at the time was that nearly all of our microservice infrastructure was built on top of cloudant, IBM's couchdb-as-a-service offering.
+          Whenever cloudant had an outage(which was fairly often at the time), many of our microservices would go down.
+          The outage was usually localized to a specific cloudant cluster, but all of our microservices were hosted on the same cluster.
+          To mitigate these downtime issues, I setup a secondary backup cluster with bi-directional replication where we could failover to in the event of an outage.
+          I added a proxy in front of the clusters that would route traffic to the healthy cluster and failover to the backup cluster if the primary cluster was down.
+          This was a huge improvement for our uptime and allowed us to keep our SLAs.
+
+          During my time at IBM I became really fascinated with machine learning(particularly reinforcement learning) and began to study it on the side. After a few years, I decided to move on to work on ML full time.
 
   - title: Education
     layout: list
