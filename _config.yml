@@ -60,7 +60,7 @@ content:
         caption: October 2021 - Present
         description: |
           According to the American College of Obstetricians and Gynecologists, the US has a [shortage of 9000 obstetricians](https://www.ajmc.com/view/physician-shortage-likely-to-impact-obgyn-workforce-in-coming-years).
-          This problem is only getting worse with only [1 in 5 Ob/Gyns being under the age of 40](https://www.ajmc.com/view/physician-shortage-likely-to-impact-obgyn-workforce-in-coming-years), ACOG projects a shortage of 22,000 Ob/Gyns by 2050.
+          With only [1 in 5 Ob/Gyns being under the age of 40](https://www.ajmc.com/view/physician-shortage-likely-to-impact-obgyn-workforce-in-coming-years), ACOG projects the shortage to grow to 22,000 Ob/Gyns by 2050.
           A large part of this deficit is physician burnout, which is [twice the rate of other working adults](https://www.acog.org/news/news-articles/2019/10/why-ob-gyns-are-burning-out).
           What's the number one cause of physician burnout? [Too many administrative tasks(e.g. charting, paperwork)](https://www.medscape.com/slideshow/2022-lifestyle-burnout-6014664?faf=1#4).
 
@@ -68,36 +68,43 @@ content:
           Our tool automatically generates reports from fetal ultrasound images and we're currently piloting it with a handful of clinics in the MENA region.
 
           We're starting with a focus on administrative automation(the boring stuff), but we're also building tools to help doctors recognize abnormalities earlier and with higher accuracy to improve patient outcomes.
-          Over 50% of fetal structural anomalies go [undetected during pregnancy](https://eu-rd-platform.jrc.ec.europa.eu/eurocat/eurocat-data/prenatal-screening-and-diagnosis_en) with ~10% being detected after 23 weeks when termination is often no longer an option.
-          Congenital anomalies affect around [2% of fetuses](https://obgyn.onlinelibrary.wiley.com/doi/10.1111/aogs.13037) and there's ~140 million births per year.
-          That means that there are ~1.26 million undetected congenital anomalies per year. The problem is likely even worse because most of this data comes from the US and Europe where high quality healthcare is relatively accessible.
-          In developing nations, where the bulk of pregnancies are occurring, the problem is likely even worse. Luckily, ultrasound is a relatively cheap and accessible technology that can be used to detect these anomalies.
-          If we can improve the diagnosis rate by just 10% or detect anomalies earlier, it would have a huge impact on the lives of hundreds of thousands of people.
+          Over 50% of fetal structural anomalies go [undetected during pregnancy](https://eu-rd-platform.jrc.ec.europa.eu/eurocat/eurocat-data/prenatal-screening-and-diagnosis_en) with ~20% of those detected being detected after 23 weeks when termination is often no longer an option.
+          Congenital anomalies affect around [1.8% of fetuses](https://obgyn.onlinelibrary.wiley.com/doi/10.1111/aogs.13037) and there's ~140 million births per year globally.
+          That means that there are ~1.26 million undetected congenital anomalies per year. The problem is likely even worse because most of this data comes from the US and Europe where high quality healthcare is _relatively_ accessible.
+
+          In developing nations, where the bulk of pregnancies are occurring, the problem is likely even worse. Luckily, ultrasound is a widely available technology with probe costs running as low as $1000.
+          If we can improve the diagnosis rate by just 10% or detect anomalies earlier, it would have a huge impact on the lives of hundreds of thousands of families.
+          That's our mission. We're building tools to help doctors detect anomalies earlier and with higher accuracy to improve patient outcomes.
+
+          So how are we doing it?
 
           The most important ingredient in any machine learning project is data, and the journey to get to high-quality labeled data was long and bumpy.
           We built a dataset and annotation team with one of our partner clinics and started the process of labeling our ultrasound images with plane labels and anatomical regions.
 
           This all started off as a side-project in 2019 and at the time there weren't a lot of high-quality annotation tools around.
           The really good tools were hundreds of dollars a month per user and certainly outside the budget of an unfunded side-project.
-          We were annotating all of our images with a local tool called [pixel annotation tool](https://github.com/abreheret/PixelAnnotationTool) having the annotators sync the dataset and annotations between google drive and their local machine.
+          We were annotating all of our images with a local tool called [pixel annotation tool](https://github.com/abreheret/PixelAnnotationTool) having our annotation team sync the dataset and annotations between google drive and their local machines.
+
           Reviewing annotation progress was manual. Uploading anonymized data to google drive was manual. Splitting the data and organizing it so each annotator had their own set of data to work on was manual.
           We were spending way too much time keeping our annotation team organized.
 
-          My cofounder [Robhy](https://twitter.com/rickyrobhy) and I did some research and tested out a bunch of different annotation tools and we eventually settled on an open-source, cloud-based tool called labelstudio.
-          I'm really partial to open-source projects that offer a hosted option for $, but perhaps the biggest factors in our decision were cost and security.
-          Self-deployment meant we could keep all of our data inside GCP and we could use our cloud credits to pay for everything.
+          My cofounder [Robhy](https://twitter.com/rickyrobhy) and I did some research and tested out a bunch of different labeling tools and we eventually settled on an open-source, cloud-based tool called labelstudio.
 
-          Labelstudio is great. Finally our data was in the cloud. Finally we could review annotation progress in real-time. Finally we didn't have to manually split our data so that each annotator had their own set of data to work on. Paradise, right?
-          Well... not quite. Labelstudio is great for annotating images, but it's not great for monitoring annotation progress(at least the open-source version).
-          Luckily, my BI skills were pretty polished at this point so I deployed metabase into our GKE cluster and built some dashboards to track our annotation progress over time.
-          Finally we could visualize our annotation progress!
+          I'm really partial to open-source projects that offer a hosted option to fund the project, but perhaps the biggest factor in our decision were cost and security.
+          Self-deployment meant we could keep all of our data inside GCP and we could use our cloud credits(thanks GCP!) to pay for everything.
 
-          One last pain point though. I was still manually uploading our data into labelstudio and that just wouldn't do.
+          Finally our data was in the cloud and we didn't have to manually split the data so that each annotator had their own set of data to label. Paradise, right? Well... not quite.
+
+          Labelstudio is great for annotating images, but the open-source version doesn't have features for measuring labeling progress. I deployed metabase into our GKE cluster and built some dashboards to track our annotation progress over time!
+
+          One last pain point though. I was still manually uploading our data into labelstudio which was a huge time-suck.
+
           At this point we had already built a data ingestion pipeline for our core reporting software where our partner clinics would forward DICOM studies into a GCP dicom store using a protocol called DIMSE.
-          From there, we just setup a pub/sub subscriber that called the gcp anonymization api, uploaded the anonymized data to our GCS bucket and called the labelstudio api to import the image.
-          Voila! No more manual data munging in our annotation pipeline.
+          From there, we just setup a pub/sub subscriber that called the gcp anonymization api, uploaded the anonymized data to our GCS bucket, called our latest model to generate an starting annotation and called the labelstudio api to import the image.
 
-          If you want to learn more about bioticsai and our interesting engineering challenges, shoot me an email at chaskin@biotics.ai or check out our [website](https://biotics.ai/).
+          Voila! No more manual data munging to get our data annotated.
+
+          We're still in the early stages of our project, but we already have a handful of clinics actively using our tool for reporting!
 
       - layout: right
         border: weak
@@ -105,25 +112,25 @@ content:
         sub_title: Senior Data Engineer
         caption: January 2020 - October 2021
         description: |
-          B-Stock is a company that provides a marketplace to help companies liquidate their excess inventory. It's a surprisingly large market, and B-Stock is the largest player.
+          B-Stock is a company that provides a marketplace to help other companies liquidate their excess inventory. It's a surprisingly large market, and B-Stock is the largest player.
           Many companies like Amazon or Costco have large warehouses full of inventory. When something gets returned, if they can't sell it right away it starts to clutter up their warehouse.
 
-          If they can't resell it they two options:
+          If they can't resell the inventory they two options:
             1. Sell it to a liquidator like B-Stock
-            2. Throw it in a landfill
+            2. Dump it in a landfill
 
-          Prior to B-Stock, the liquidations industry was pretty shady, involving many small private liquidators that would offer recovery rates as low as 2-3% and some companies would even pay to have their inventory destroyed.
+          Prior to B-Stock, the liquidations industry was pretty insular, involving many small private liquidators that would offer recovery rates as low as 2-3% and some companies would even pay to have their inventory destroyed.
 
-          When I joined B-Stock, we had a small "data warehouse" built on top of MySQL called "alldata" with a 1-off ETL pipeline for funneling data from our application dbs into alldata.
+          When I joined B-Stock, we had a small "data warehouse" built on top of MySQL called "alldata" with a one-off ETL pipeline for funneling data from our application dbs into alldata.
           The problem with alldata was that it really only had a small subset of our application data, the data pipeline was pretty buggy and it was really time-consuming to add new data sources.
 
           Because of these limitations, most of the account managers had been running their own analytics through excel and were manually generating reports for their clients.
           The report generation process was collectively costing the account management team almost a hundred hours a week, and it was a huge bottleneck for the company.
 
           I built a new data warehouse on top of bigquery and setup fivetran to sync data directly from our microservices databases into bigquery.
-          Because of the way it was stored, there was a subset of data that couldn't be ingested ingested with fivetran, so I wrote few data pipeline to sync that data into bigquery as well.
+          Some of our data, like auction manifests(stored as csvs), couldn't be ingested through fivetran so I wrote few data pipelines to sync that data into bigquery as well.
 
-          From there, I built a report within our BI tool(metabase) that allowed account managers to generate reports for their clients with a few clicks.
+          From there, I built a dashboard within our BI tool(metabase) that allowed account managers to generate reports for their clients with a few clicks.
           In the end, we ended up with a data warehouse accessible to the whole company through metabase which really democratized the company's data and allowed anyone to build data visualizations without having to download a bunch of csv's, concatenate them, and then generate a report in excel.
 
       - layout: right
@@ -143,9 +150,10 @@ content:
 
           We decided to try and tackle this problem with computer vision. Unlike many computer vision problems which require human annotators to label training data, we were able to generate our own training data from completed floorplans.
           As long as you have a dataset of completed drawings, you can open them up in a CAD program, zoom in on a specific element, and then take a screenshot of the element. You can then temporarily remove the element, and take another screenshot.
-          After that, you just diff the two screenshots to grab a bounding box for the label and voila, you have a fully labeled dataset to train your favorite object detection model!
 
-          This worked shockingly well, and we were able to get a model that could annotate potential label locations in a floorplan very effectively! We plugged this into revit and boom, we had a fully automated floorplan element tagging tool!
+          After that, you just diff the two screenshots to grab a bounding box for the label and voila, you have a fully labeled dataset to train your model!
+
+          Obviously we scripted all of this, but the end result was a model that could annotate potential label locations in a floorplan very effectively! We plugged this into revit and boom, we had a fully automated floorplan element tagging tool!
 
           We worked on a few different ML projects while I was there and not all of them panned out as well as this one, but it was a great experience and I learned a ton about modeling and computer vision in the process.
 
@@ -157,7 +165,7 @@ content:
         description: |
           I started my career off at IBM cloud. My team built and maintained the account management, billing and analytics systems.
 
-          We wrote almost everything using node, express, and couchdb with react frontends when a frontend was required.
+          We wrote almost everything using node, express, couchdb, and react when a frontend was required.
           I was there for three years and so I had my hands in many pies, including:
             - Email notifications for outages and customer-lifecycle events.
             - Data pipelines for funneling behavioral and billing data into our analytics systems.
@@ -165,13 +173,16 @@ content:
             - Managing onboarding and placement of our intern cohorts.
 
           One issue we had at the time was that nearly all of our microservice infrastructure was built on top of cloudant, IBM's couchdb-as-a-service offering.
+
           Whenever cloudant had an outage(which was fairly often at the time), many of our microservices would go down.
           The outage was usually localized to a specific cloudant cluster, but all of our microservices were hosted on the same cluster.
-          To mitigate these downtime issues, I setup a secondary backup cluster with bi-directional replication where we could failover to in the event of an outage.
+
+          To mitigate these downtime issues, I setup a secondary backup cluster with bi-directional replication where we could failover in the event of an outage.
           I added a proxy in front of the clusters that would route traffic to the healthy cluster and failover to the backup cluster if the primary cluster was down.
           This was a huge improvement for our uptime and allowed us to keep our SLAs.
 
-          During my time at IBM I became really fascinated with machine learning(particularly reinforcement learning) and began to study it on the side. After a few years, I decided to move on to work on ML full time.
+          During my time at IBM I became really fascinated with machine learning(particularly reinforcement learning) and began to study it on the side.
+          After a few years, I decided to leave IBM and work full time on Machine Learning.
 
   - title: Education
     layout: list
@@ -185,28 +196,30 @@ content:
         description: | # this will include new lines to allow paragraphs
           I started programming on my TI-84 in middle school, writing text-based games and algebra solvers.
           My high-school didn't offer programming classes, so when I finally graduated and started college I was starving to learn more.
+          I was also addicted to mathematics, spending many evenings in the math lab helping other students with their homework.
 
-          I was also fascinated with mathematics, spending many evenings in the math lab helping other students with their homework.
           College was an amazing experience for me. It was the first time that I felt truly independent.
           I finally had the freedom to pursue programming and I was surrounded by people with the same interests and passions as me!
+
           To help pay for college, I worked as a residence assistant and math and computer science tutor.
           I joined the math and computer science clubs, eventually becoming the VP of the CSA.
 
           I won first place in the CS2 programming competition. The prize was a raspberry pi which I used to build a [gym capacity indicator](https://github.com/CSC480-Gym-Class-Heroes).
-          It's difficult to convey how special my time at Oswego was. I met some of my best friends there and I learned a lot about myself.
 
+          It's difficult to convey how special my time at Oswego was. I met some of my best friends there and I learned a lot about myself.
           Being in an environment where everyone is passionate about learning brought out the best side of me.
 
   - title: A Little More About Me
     layout: text
     content: |
-      I'm an avid rock climber and climb v5's pretty consistently.
+      When I'm not programming, you'll probably find me at the climbing gym or doing a weekend climbing trip to Bishop, CA.
+      I love traveling and working from new places!
 
-      I love to travel and work from new places. I'm also a huge audiobook addict and I'm working through Nick Lane's "The Vital Question" right now.
+      I'm a huge audiobook addict and I'm working through Nick Lane's "The Vital Question" right now.
 
       If you're interested in sci-fi definitely check out Andy Weir's "Project Hail Mary" 10/10 science fiction!
 
-      In december, my partner and I do [advent of code](https://github.com/csaroff/advent-of-code) problems together. It's a lot of fun and I even got to day 14 this year!
+      In december, my partner and I do [advent of code](https://github.com/csaroff/advent-of-code) problems together.
 
 # Footer
 footer_show_references: false
