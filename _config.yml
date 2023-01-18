@@ -48,7 +48,7 @@ about_content: | # this will include new lines to allow paragraphs
 
   I’ve previously worked at IBM, Bad-Monkeys and B-Stock and right now I’m building ML models for fetal diagnostics and reporting automation at [BioticsAI](https://www.biotics.ai/).
 
-  I'm really interested in the intersection of machine learning and health science and I'm grateful to be a working on advancing this technology.
+  I'm really interested in the intersection of machine learning and health science and I'm grateful to be working on advancing this technology.
 content:
   - title: Experience
     layout: list
@@ -100,7 +100,7 @@ content:
           One last pain point though. I was still manually uploading our data into labelstudio which was a huge time-suck.
 
           At this point we had already built a data ingestion pipeline for our core reporting software where our partner clinics would forward DICOM studies into a GCP dicom store using a protocol called DIMSE.
-          From there, we just setup a pub/sub subscriber that called the gcp anonymization api, uploaded the anonymized data to our GCS bucket, called our latest model to generate an starting annotation and called the labelstudio api to import the image.
+          From there, we just set up a pub/sub subscriber that called the gcp anonymization api, uploaded the anonymized data to our GCS bucket, called our latest model to generate a starting annotation and called the labelstudio api to import the image.
 
           Voila! No more manual data munging to get our data annotated.
 
@@ -127,8 +127,8 @@ content:
           Because of these limitations, most of the account managers had been running their own analytics through excel and were manually generating reports for their clients.
           The report generation process was collectively costing the account management team almost a hundred hours a week, and it was a huge bottleneck for the company.
 
-          I built a new data warehouse on top of bigquery and setup fivetran to sync data directly from our microservices databases into bigquery.
-          Some of our data, like auction manifests(stored as csvs), couldn't be ingested through fivetran so I wrote few data pipelines to sync that data into bigquery as well.
+          I built a new data warehouse on top of bigquery and se tup fivetran to sync data directly from our microservices databases into bigquery.
+          Some of our data, like auction manifests(stored as csvs), couldn't be ingested through fivetran so I wrote a few data pipelines to sync that data into bigquery as well.
 
           From there, I built a dashboard within our BI tool(metabase) that allowed account managers to generate reports for their clients with a few clicks.
           In the end, we ended up with a data warehouse accessible to the whole company through metabase which really democratized the company's data and allowed anyone to build data visualizations without having to download a bunch of csv's, concatenate them, and then generate a report in excel.
@@ -144,7 +144,7 @@ content:
           Bad Monkeys is a startup that builds tools and does consulting for the building information modeling industry(think CADD tools like revit).
           They had the vision to automate some of the more repetitive and boring aspects of floorplan design.
 
-          One issue with floorplan design is that it that you have to label various elements within a room(like columns, walls, doorways, etc) prior to construction.
+          One issue with floorplan design is that you have to label various elements within a room(like columns, walls, doorways, etc) prior to construction.
           A draftsman or technician will often finish a room or building and then go back and label all of the elements in the room.
           This is a very tedious process and trying to automate it with traditional heuristic rules like "place it as close as possible to the element, but with no overlap" fails to place labels in reasonable locations.
 
@@ -177,7 +177,7 @@ content:
           Whenever cloudant had an outage(which was fairly often at the time), many of our microservices would go down.
           The outage was usually localized to a specific cloudant cluster, but all of our microservices were hosted on the same cluster.
 
-          To mitigate these downtime issues, I setup a secondary backup cluster with bi-directional replication where we could failover in the event of an outage.
+          To mitigate these downtime issues, I set up a secondary backup cluster with bi-directional replication where we could failover in the event of an outage.
           I added a proxy in front of the clusters that would route traffic to the healthy cluster and failover to the backup cluster if the primary cluster was down.
           This was a huge improvement for our uptime and allowed us to keep our SLAs.
 
