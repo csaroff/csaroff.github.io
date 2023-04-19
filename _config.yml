@@ -130,7 +130,7 @@ content:
           I built a new data warehouse on top of bigquery and set up Fivetran to sync data directly from our microservices databases into bigquery.
           Some of our data, like auction manifests (stored as csv files), couldn’t be ingested through Fivetran, so I wrote a few data pipelines to sync that data into bigquery as well.
 
-          From there, I built a dashboard within our BI tool () that allowed account managers to generate reports for their clients with a few clicks.
+          From there, I built a dashboard within our BI tool (metabase) that allowed account managers to generate reports for their clients with a few clicks.
           In the end, we ended up with a data warehouse accessible to the whole company through  which really democratized the company’s data and allowed anyone to build data visualizations without having to download a bunch of csv files, concatenate them, and then generate a report in Excel.
 
       - layout: right
@@ -146,7 +146,7 @@ content:
 
           One issue with floor plan design is that you have to label various elements within a room (like columns, walls, doorways, etc) prior to construction.
           A draftsman or technician will often finish a room or building and then go back and label all of the elements in the room.
-          This process is very tedious, and trying to automate it with traditional heuristic rules like “place it as close as possible to the element, but with no overlap” fails to place labels in reasonable location
+          This process is very tedious, and trying to automate it with traditional heuristic rules like “place it as close as possible to the element, but with no overlap” fails to place labels in reasonable locations.
 
           We decided to tackle this problem with computer vision. Unlike many computer vision problems that require human annotators to label training data, we were able to generate our own training data from completed floor plans.
           As long as you have a dataset of completed drawings, you can open them up in a CAD program, zoom in on a specific element, and then take a screenshot of the element. You can then temporarily remove the element and take another screenshot.
